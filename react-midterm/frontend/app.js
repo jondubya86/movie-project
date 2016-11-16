@@ -9,6 +9,7 @@ var App = React.createClass({
     return (
         <div>
         <Form/>
+        <MovieList/>
         </div>
     )
 }

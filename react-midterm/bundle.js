@@ -69,7 +69,8 @@
 	        return React.createElement(
 	            'div',
 	            null,
-	            React.createElement(_inputform2.default, null)
+	            React.createElement(_inputform2.default, null),
+	            React.createElement(_MovieList2.default, null)
 	        );
 	    }
 	});
@@ -30451,16 +30452,17 @@
 	
 		getInitialState: function getInitialState() {
 			return { input: '',
-				movielist: ['In Bruges', 'Fight Club', 'Pulp Fiction']
+				movielist: ['In Bruges', 'Fight Club', 'Pulp Fiction', 'Braveheart']
 			};
 		},
-		handleChange: function handleChange(inputEvent, event) {
+		handleChange: function handleChange(event) {
 			console.log(this.state);
 			this.setState({ input: event.target.value });
 		},
-		addMovie: function addMovie(e) {
-			e.preventDefault();
-			this.setState({ movielist: this.state.input });
+		addMovie: function addMovie(event) {
+			event.preventDefault();
+			this.setState({ movielist: this.state.movielist.concat(this.state.input) });
+			console.log(this.state.movielist);
 		},
 	
 		render: function render() {
@@ -30471,15 +30473,11 @@
 				React.createElement(_MovieList2.default, { list: this.state.movielist }),
 				React.createElement(
 					'form',
-					null,
+					{ onSubmit: this.addMovie },
 					React.createElement('input', { type: 'text', placeholder: 'Insert Title Here',
-						onChange: this.handleChange.bind(this, 'input'),
+						onChange: this.handleChange,
 						value: this.state.input }),
-					React.createElement(
-						'button',
-						{ onClick: this.addMovie },
-						'Click here'
-					)
+					React.createElement('input', { type: 'submit', value: 'Click Here' })
 				)
 			);
 		}
@@ -30535,26 +30533,23 @@
 		render: function render() {
 			var _this2 = this;
 	
-			if (this.props.list) {
-				return React.createElement(
-					'div',
+			return this.props.list ? React.createElement(
+				'div',
+				null,
+				React.createElement(
+					'ul',
 					null,
-					React.createElement(
-						'ul',
-						null,
-						this.props.list.map(function (a, idx) {
-							return React.createElement(
-								'li',
-								{ onClick: _this2.movieClick.bind(_this2, a), key: idx },
-								a
-							);
-						}),
-						React.createElement(_TitleandInfo2.default, { titles: this.state.title, overview: this.state.overview, poster: this.state.poster })
-					)
-				);
-			}
+					this.props.list.map(function (a, idx) {
+						return React.createElement(
+							'li',
+							{ onClick: _this2.movieClick.bind(_this2, a), key: idx },
+							a
+						);
+					}),
+					React.createElement(_TitleandInfo2.default, { titles: this.state.title, overview: this.state.overview, poster: this.state.poster })
+				)
+			) : null;
 		}
-	
 	});
 	
 	exports.default = MovieList;

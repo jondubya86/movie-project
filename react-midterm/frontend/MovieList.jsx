@@ -20,17 +20,16 @@ var MovieList = React.createClass({
 		})
 	},
 	render: function() {
-		if (this.props.list){
 		return (
+		(this.props.list)?
 			<div>
 			<ul>
 			{this.props.list.map((a,idx)=><li onClick={this.movieClick.bind(this, a)} key={idx}>{a}</li>)}
 			<TitleandInfo titles={this.state.title} overview={this.state.overview} poster={this.state.poster}/>
 			</ul>
-			</div>)
+			</div>:null)
 
-	}}
-
+	}
 })
 
 export default MovieList

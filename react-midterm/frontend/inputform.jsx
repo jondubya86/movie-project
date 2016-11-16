@@ -4,27 +4,28 @@ import MovieList from './MovieList.jsx';
 var Form = React.createClass({
 	getInitialState: function() {
 		return {input:'',
-				movielist:['In Bruges','Fight Club','Pulp Fiction'],
+				movielist:['In Bruges','Fight Club','Pulp Fiction','Braveheart'],
 			}
 	},
-	handleChange(inputEvent, event) {
+	handleChange(event) {
 		console.log(this.state)
 		this.setState({input: event.target.value});
 	},
-	addMovie(e){
-		 e.preventDefault();
-    	this.setState({movielist:this.state.input})
+	addMovie(event){
+    	event.preventDefault();
+    	this.setState({movielist:this.state.movielist.concat(this.state.input)})
+    	console.log(this.state.movielist)
 	},
 	render: function() {
 		console.log(this.state.input)
 		return (
 			<div>
 			<MovieList list={this.state.movielist}/>
-			<form>
+			<form onSubmit={this.addMovie}>
 			<input type='text' placeholder='Insert Title Here'
-				onChange={this.handleChange.bind(this,'input')}
+				onChange={this.handleChange}
 				value={this.state.input}></input>
-			<button onClick={this.addMovie}>Click here</button>
+			<input type="submit" value="Click Here"></input>
 			</form>
 			</div>)
 		}
